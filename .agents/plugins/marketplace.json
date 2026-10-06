@@ -1,0 +1,1 @@
+{"name":"artifacts-local-dev","interface":{"displayName":"Artifacts 本地开发"},"plugins":[{"name":"artifacts-local","source":{"source":"local","path":"./dist/codex-plugin"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"}]}

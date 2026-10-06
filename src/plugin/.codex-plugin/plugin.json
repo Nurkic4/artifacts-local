@@ -1,0 +1,6 @@
+{
+ "name":"artifacts-local","version":"0.1.0",
+ "description":"Agent 的 Markdown 纯阅读展示工具",
+ "skills":"./skills/","mcpServers":"./.mcp.json",
+ "interface":{"displayName":"Artifacts 文档展示","shortDescription":"Agent 文档生成后的纯阅读展示","category":"Productivity"}
+}

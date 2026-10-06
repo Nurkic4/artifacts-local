@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="240" viewBox="0 0 1080 240">
+  <rect width="1080" height="240" rx="20" fill="#14202b"/>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <path d="M310 120H385M695 120H770" stroke="#70d8d0" stroke-width="3"/>
+    <path d="m375 112 10 8-10 8m385-16 10 8-10 8" fill="none" stroke="#70d8d0" stroke-width="3"/>
+    <g fill="#203342" stroke="#39586a"><rect x="35" y="45" width="275" height="150" rx="14"/><rect x="402" y="45" width="276" height="150" rx="14"/><rect x="770" y="45" width="275" height="150" rx="14"/></g>
+    <g fill="#70d8d0" font-size="17"><text x="62" y="78">01 / IDEA</text><text x="429" y="78">02 / DOCUMENT</text><text x="797" y="78">03 / READING</text></g>
+    <g fill="#f1f6fa" font-size="28" font-weight="600"><text x="62" y="122">一个值得表达的想法</text><text x="429" y="122">一份结构清晰的文档</text><text x="797" y="122">一次轻松的阅读</text></g>
+    <g fill="#b6c9d6" font-size="17"><text x="62" y="160">明确主题与读者</text><text x="429" y="160">文字、图表与公式</text><text x="797" y="160">只关注内容本身</text></g>
+  </g>
+</svg>

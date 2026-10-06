@@ -1,0 +1,30 @@
+{
+  "name": "artifacts-local",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent-first local Markdown presentation adapters",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "start": "node src/server.cjs",
+    "mcp": "node src/mcp.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "package": "node scripts/package.cjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.0",
+    "zod": "^3.25.0",
+    "diff": "^8.0.2"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "^0.25.0",
+    "@vscode/test-electron": "3.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nurkic4/artifacts-local.git"
+  }
+}

@@ -1,0 +1,23 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const os=require('node:os');
+const {receive}=require('../src/receive.cjs');
+const {startServer}=require('../src/server.cjs');
+test('persistent publication preserves links across restarts, confines paths and enforces read-only API',async t=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'artifacts-remote-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const tokenFile=path.join(root,'token');fs.writeFileSync(tokenFile,'a'.repeat(64));
+ const config={root,tokenFile,host:'127.0.0.1',port:2013},payload={namespace:'b'.repeat(24),entry:'docs/计划.md',files:[{path:'docs/计划.md',data:Buffer.from('# 标题\n![图](图.svg)').toString('base64')},{path:'docs/图.svg',data:Buffer.from('<svg/>').toString('base64')}]};
+ const first=receive(config,payload),second=receive(config,payload);assert.equal(first.url,second.url);
+ assert.throws(()=>receive(config,{...payload,files:[{path:'../escape.md',data:''}]}),/相对路径/);
+ let view=await startServer(root,{token:'a'.repeat(64),readOnly:true});
+ const origin=new URL(view.url).origin;
+ const headers={Authorization:'Bearer '+'a'.repeat(64)};
+ const response=await fetch(origin+'/api',{method:'POST',headers,body:JSON.stringify({operation:'get',args:{id:first.artifactId}})});assert.equal(response.status,200);assert.match((await response.json()).value.current.content,/标题/);
+ const denied=await fetch(origin+'/api',{method:'POST',headers,body:JSON.stringify({operation:'register',args:{path:'x.md'}})});assert.equal((await denied.json()).error.code,'READ_ONLY');
+ const resource=await fetch(origin+'/app.js');assert.equal(resource.status,200);const cached=await fetch(origin+'/app.js',{headers:{'If-None-Match':resource.headers.get('etag')}});assert.equal(cached.status,304);
+ assert.equal(resource.headers.get('content-encoding'),'gzip');assert.equal(await resource.text(),fs.readFileSync(path.resolve(__dirname,'../dist/web/app.js'),'utf8'));
+ const uncompressed=await fetch(origin+'/app.js',{headers:{'Accept-Encoding':'identity'}});assert.equal(uncompressed.headers.get('content-encoding'),null);assert.notEqual(uncompressed.headers.get('etag'),resource.headers.get('etag'));await uncompressed.text();
+ await view.close();view=await startServer(root,{token:'a'.repeat(64),readOnly:true});t.after(()=>view.close());assert.equal(view.store.get(first.artifactId).path,'projects/'+payload.namespace+'/'+payload.entry);
+});

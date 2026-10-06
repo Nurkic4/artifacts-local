@@ -1,0 +1,16 @@
+[Unit]
+Description=Artifacts optional legacy Markdown viewer
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/node %h/artifacts/app/service.cjs %h/artifacts/config.json
+WorkingDirectory=%h/artifacts
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+MemoryMax=256M
+
+[Install]
+WantedBy=default.target

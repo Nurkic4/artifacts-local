@@ -1,0 +1,7 @@
+{
+ "$schema":"https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+ "name":"artifacts-local","version":"0.1.0",
+ "description":"Agent 写好本地 Markdown 后生成原版阅读页面，无上传、无网页服务。",
+ "author":{"name":"Local Artifacts"},
+ "extensions":{"com.openai":{"interface":{"displayName":"Artifacts 文档展示","shortDescription":"Agent 文档生成后的纯阅读展示","category":"Productivity"}}}
+}

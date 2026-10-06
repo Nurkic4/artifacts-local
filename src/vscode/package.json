@@ -1,0 +1,105 @@
+{
+  "name": "artifacts-local",
+  "displayName": "Artifacts · Markdown 展示",
+  "publisher": "local-artifacts",
+  "version": "0.1.0",
+  "description": "Agent 创建 Markdown 后自动使用 Antigravity 原版组件展示。仅供本机研究使用。",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.cjs",
+  "files": [
+    "extension.cjs",
+    "web/**",
+    "README.md",
+    "NOTICE.md",
+    "docs/**"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": false
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onCustomEditor:artifacts.preview",
+    "onCommand:artifacts.open",
+    "onCustomEditor:artifacts.media"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "artifacts.open",
+        "title": "Artifacts: 展示文档"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "artifacts.preview",
+        "displayName": "Artifacts 文档展示",
+        "selector": [
+          {
+            "filenamePattern": "*.md"
+          },
+          {
+            "filenamePattern": "*.markdown"
+          },
+          {
+            "filenamePattern": "*.resolved"
+          }
+        ],
+        "priority": "option"
+      },
+      {
+        "viewType": "artifacts.media",
+        "displayName": "Artifacts 媒体展示",
+        "selector": [
+          {
+            "filenamePattern": "*.png"
+          },
+          {
+            "filenamePattern": "*.jpg"
+          },
+          {
+            "filenamePattern": "*.jpeg"
+          },
+          {
+            "filenamePattern": "*.svg"
+          },
+          {
+            "filenamePattern": "*.gif"
+          },
+          {
+            "filenamePattern": "*.webp"
+          },
+          {
+            "filenamePattern": "*.pdf"
+          },
+          {
+            "filenamePattern": "*.mp4"
+          },
+          {
+            "filenamePattern": "*.webm"
+          },
+          {
+            "filenamePattern": "*.mp3"
+          },
+          {
+            "filenamePattern": "*.wav"
+          },
+          {
+            "filenamePattern": "*.ogg"
+          },
+          {
+            "filenamePattern": "*.m4a"
+          }
+        ],
+        "priority": "option"
+      }
+    ]
+  }
+}
