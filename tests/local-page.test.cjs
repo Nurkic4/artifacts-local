@@ -9,6 +9,8 @@ test('local page persists document data and freezes adapter across reloads and s
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'artifacts-page-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  fs.writeFileSync(path.join(root,'中文.md'),'# 标题\n</script><script>bad()</script>');
  const result=localPage(root,'中文.md');
+ assert.deepEqual(result.openTarget,{type:'browser',url:result.url});
+ assert.match(result.openingInstructions,/Do not open previewPath in a source editor/);
  const html=fs.readFileSync(result.previewPath,'utf8');
  const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
  assert.equal(scripts.length,2);assert.ok(!html.includes('src="'+new URL('app.js',result.url).href+'"'));

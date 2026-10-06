@@ -47,7 +47,8 @@ function localPage(workspace,file,assets=[],web=path.resolve(__dirname,typeof __
  const adapter=fs.readFileSync(path.join(web,'app.js'),'utf8').replace(/<\/script/gi,'<\\/script');
  html=html.replace(/<script src="[^"]*\/app\.js"><\/script>/,()=>`<script>${adapter}</script>`);
  fs.writeFileSync(output,html,'utf8');
- return {url:pathToFileURL(output).href,path:files[0].path,previewPath:output,interface:'local-file',artifactId:documents[0].id};
+ const url=pathToFileURL(output).href;
+ return {url,path:files[0].path,previewPath:output,interface:'local-file',artifactId:documents[0].id,openTarget:{type:'browser',url},openingInstructions:'Open openTarget in the host browser to render the document. Do not open previewPath in a source editor. previewPath is for explicitly supported HTML previewers only.'};
 }
 module.exports={localPage};
 if(require.main===module){try{console.log(JSON.stringify(localPage(process.argv[2],process.argv[3],process.argv.slice(4))));}catch(error){log('error','local-page',{workspace:process.argv[2],file:process.argv[3]},error);process.exitCode=1;}}

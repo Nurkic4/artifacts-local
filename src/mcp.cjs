@@ -41,7 +41,7 @@ tool('artifacts_open','Start a private loopback review page. Open returned URL i
   if(!views.has(s.root))views.set(s.root,await startServer(s.root,{assets}));
   return {url:views.get(s.root).url+(a.id?'&artifact='+encodeURIComponent(a.id):''),workspace:s.root,interface:'local-browser'};
 });
-tool('artifacts_present','Create a local read-only HTML preview of a saved Markdown document, then open returned file URL or previewPath with the host file/browser viewer. No upload or web server. Include referenced local resources and linked Markdown in assets. Run again after editing to refresh the snapshot at the same path.',{workspace,path:z.string().min(1),assets:z.array(z.string()).optional()},false,async(s,a)=>{
+tool('artifacts_present','Create a local read-only HTML preview of a saved Markdown document. Open returned openTarget (type: browser) or url in the host browser, never in a source editor. previewPath is only for explicit HTML-rendering previewers. No upload or web server. Include referenced local resources and linked Markdown in assets. Run again after editing to refresh the snapshot at the same path.',{workspace,path:z.string().min(1),assets:z.array(z.string()).optional()},false,async(s,a)=>{
  if(!/\.(md|markdown|resolved)$/i.test(a.path))throw Error('artifacts_present requires a Markdown file path: '+a.path);
  return localPage(s.root,a.path,a.assets||[],assets);
 });
